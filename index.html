@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Қарзкунандаи интеллектуалӣ: Аннуитетӣ ва Дифференсиалӣ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Noto Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e9f0fc 0%, #d9e2ef 100%);
+            margin: 0;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* контейнер асосӣ */
+        .credit-card {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 48px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            backdrop-filter: blur(0px);
+            transition: all 0.2s;
+        }
+
+        /* сарлавҳа ва тобҳо */
+        .hero {
+            background: #0a2b3e;
+            padding: 28px 32px;
+            color: white;
+        }
+
+        .hero h1 {
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            font-size: 1.9rem;
+            letter-spacing: -0.3px;
+        }
+
+        .hero p {
+            margin: 0;
+            opacity: 0.85;
+            font-size: 1rem;
+        }
+
+        /* панели асбобҳо */
+        .calculator-panel {
+            padding: 28px 32px 20px 32px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2edf7;
+        }
+
+        .input-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .input-field label {
+            display: block;
+            font-weight: 600;
+            color: #1a4c6e;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-field input, .input-field select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: 2px solid #cbdde9;
+            border-radius: 28px;
+            background: #fefefe;
+            transition: 0.2s;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .input-field input:focus, .input-field select:focus {
+            border-color: #2c7cb6;
+            box-shadow: 0 0 0 3px rgba(44,124,182,0.2);
+        }
+
+        .type-switch {
+            display: flex;
+            gap: 20px;
+            background: #eef3fc;
+            padding: 8px 18px;
+            border-radius: 60px;
+            align-items: center;
+        }
+
+        .type-switch span {
+            font-weight: 600;
+            color: #175d88;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            background: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 1px solid #bdd4e4;
+        }
+
+        .radio-group input {
+            width: auto;
+            margin: 0;
+            transform: scale(1.1);
+        }
+
+        .calc-btn {
+            background: #1f6e43;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 44px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .calc-btn:hover {
+            background: #0f5936;
+            transform: scale(0.98);
+        }
+
+        /* ҷадвалҳо ва натиҷаҳо */
+        .results-area {
+            padding: 0 32px 32px 32px;
+        }
+
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .summary-card {
+            background: #f0f7fe;
+            border-radius: 28px;
+            padding: 18px 26px;
+            flex: 1;
+            min-width: 180px;
+            border-left: 6px solid #2c7cb6;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .summary-card span:first-child {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #2c5a7a;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-card .value {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #0a2b3e;
+            line-height: 1.2;
+            margin-top: 8px;
+            word-break: break-word;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 28px;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2edf7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #e5f0fa;
+            padding: 16px 12px;
+            text-align: center;
+            font-weight: 700;
+            color: #124263;
+            border-bottom: 2px solid #c9deef;
+        }
+
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e2edf2;
+            font-weight: 500;
+        }
+
+        tr:hover td {
+            background-color: #f4faff;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 45px;
+            color: #6f8eaa;
+            font-style: italic;
+        }
+
+        footer {
+            background: #f8fafd;
+            text-align: center;
+            padding: 18px;
+            font-size: 0.75rem;
+            color: #5e7e9c;
+            border-top: 1px solid #e0edf5;
+        }
+
+        @media (max-width: 700px) {
+            .calculator-panel, .results-area, .hero {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .summary-card .value {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="credit-card">
+    <div class="hero">
+        <h1>📊 Калкулятори қарз бо ду усул</h1>
+        <p> Тартибдиҳанда Шомаҳмадзода Адолат Шомаҳмад </p>
+    </div>
+    <div class="calculator-panel">
+        <div class="input-grid">
+            <div class="input-field">
+                <label>💰 Маблағи қарз (сомонӣ)</label>
+                <input type="number" id="loanAmount" value="50000" step="1000" placeholder="масалан 50000">
+            </div>
+            <div class="input-field">
+                <label>📅 Мӯҳлат (моҳ)</label>
+                <input type="number" id="loanMonths" value="12" step="1" min="1" max="360" placeholder="моҳ">
+            </div>
+            <div class="input-field">
+                <label>📈 Фоизи солона (%)</label>
+                <input type="number" id="annualRate" value="18" step="0.5" placeholder="масалан 18%">
+            </div>
+            <div class="input-field">
+                <label>⚙️ Намуди пардохт</label>
+                <div class="type-switch">
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="paymentType" value="annuity" checked> Аннуитетӣ
+                        </label>
+                        <label>
+                            <input type="radio" name="paymentType" value="differential"> Дифференсиалӣ
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="calc-btn" id="calculateBtn">🧮 Ҳисоб кардан</button>
+    </div>
+
+    <div class="results-area">
+        <div class="summary" id="summaryBlock">
+            <!-- динамикӣ пур карда мешавад -->
+            <div class="summary-card"><span>Пардохти моҳона (тахминӣ)</span><div class="value" id="monthlyPaymentPreview">—</div></div>
+            <div class="summary-card"><span>Маблағи умумии пардохт</span><div class="value" id="totalPaymentPreview">—</div></div>
+            <div class="summary-card"><span>Фоизи умумии пардохтшуда</span><div class="value" id="totalInterestPreview">—</div></div>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="scheduleTable">
+                <thead>
+                    <tr><th>№ моҳ</th><th>Пардохти моҳона (₴)</th><th>Пардохти асосӣ</th><th>Пардохти фоизӣ</th><th>Боқимондаи қарз</th></tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr><td colspan="5" class="no-data">Лутфан параметрҳоро ворид кунед ва "Ҳисоб кардан"-ро пахш кунед</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer>
+        🧾 Ҳисобкунӣ дар асоси формулаҳои расмии қарздиҳӣ. Аннуитетӣ — пардохти доимӣ, Дифференсиалӣ — қисми асосӣ собит, фоиз кам мешавад.
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // DOM элементҳо
+        const loanAmountInput = document.getElementById('loanAmount');
+        const loanMonthsInput = document.getElementById('loanMonths');
+        const annualRateInput = document.getElementById('annualRate');
+        const annuityRadio = document.querySelector('input[value="annuity"]');
+        const differentialRadio = document.querySelector('input[value="differential"]');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const monthlyPaymentPreviewSpan = document.getElementById('monthlyPaymentPreview');
+        const totalPaymentPreviewSpan = document.getElementById('totalPaymentPreview');
+        const totalInterestPreviewSpan = document.getElementById('totalInterestPreview');
+        const tableBody = document.getElementById('tableBody');
+
+        // функсияи ёрирасон барои интизом намудани ададҳо
+        function formatMoney(value) {
+            return value.toLocaleString('tg-TJ', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        // моҳияти ҳисоб: мегирад параметрҳо ва намуди пардохтро, бармегардонад объекти { schedule, totalPaid, totalInterest, firstPayment }
+        function calculateCredit(amount, months, annualRatePercent, type) {
+            if (amount <= 0 || months <= 0 || annualRatePercent < 0) {
+                return null;
+            }
+            const monthlyRate = annualRatePercent / 100 / 12;
+            let schedule = [];
+            let remainingDebt = amount;
+            let totalPaid = 0;
+            let totalInterestPaid = 0;
+            let firstMonthlyPayment = 0;
+
+            if (type === 'annuity') {
+                // формулаи аннуитет: K = (i * (1+i)^n) / ((1+i)^n - 1)
+                if (monthlyRate === 0) {
+                    // бефоиз
+                    const equalPrincipal = amount / months;
+                    for (let m = 1; m <= months; m++) {
+                        const principalPaid = equalPrincipal;
+                        const interestPaid = 0;
+                        const payment = principalPaid;
+                        remainingDebt -= principalPaid;
+                        if (remainingDebt < 0) remainingDebt = 0;
+                        schedule.push({
+                            month: m,
+                            payment: payment,
+                            principal: principalPaid,
+                            interest: interestPaid,
+                            balance: remainingDebt
+                        });
+                        totalPaid += payment;
+                        totalInterestPaid += interestPaid;
+                    }
+                    firstMonthlyPayment = schedule[0]?.payment || 0;
+                } else {
+                    const factor = Math.pow(1 + monthlyRate, months);
+                    const annuityPayment = amount * (monthlyRate * factor) / (factor - 1);
+                    firstMonthlyPayment = annuityPayment;
+                    let balance = amount;
+                    for (let m = 1; m <= months; m++) {
+                        const interestPayment = balance * monthlyRate;
+                        let principalPayment = annuityPayment - interestPayment;
+                        if (principalPayment > balance) principalPayment = balance;
+                        const payment = principalPayment + interestPayment;
+                        balance -= principalPayment;
+                        if (balance < 0) balance = 0;
+                        schedule.push({
+                            month: m,
+                            payment: payment,
+                            principal: principalPayment,
+                            interest: interestPayment,
+                            balance: balance
+                        });
+                        totalPaid += payment;
+                        totalInterestPaid += interestPayment;
+                    }
+                }
+            } 
+            else if (type === 'differential') {
+                // пардохти дифференсиалӣ: қисми асосии собит
+                const fixedPrincipal = amount / months;
+                let balance = amount;
+                for (let m = 1; m <= months; m++) {
+                    const interestPayment = balance * monthlyRate;
+                    const principalPayment = (m === months) ? balance : fixedPrincipal;
+                    const payment = principalPayment + interestPayment;
+                    balance -= principalPayment;
+                    if (balance < 0) balance = 0;
+                    schedule.push({
+                        month: m,
+                        payment: payment,
+                        principal: principalPayment,
+                        interest: interestPayment,
+                        balance: balance
+                    });
+                    totalPaid += payment;
+                    totalInterestPaid += interestPayment;
+                }
+                firstMonthlyPayment = schedule[0]?.payment || 0;
+            }
+            // кафолати дурустии баланси охир
+            if (schedule.length > 0) schedule[schedule.length-1].balance = 0;
+            return {
+                schedule: schedule,
+                totalPaid: totalPaid,
+                totalInterest: totalInterestPaid,
+                firstMonthlyPayment: firstMonthlyPayment
+            };
+        }
+
+        // функсияи намоиши ҷадвал ва хулоса
+        function renderResults() {
+            // гирифтани арзишҳо
+            let amount = parseFloat(loanAmountInput.value);
+            let months = parseInt(loanMonthsInput.value, 10);
+            let annualRate = parseFloat(annualRateInput.value);
+            const paymentType = annuityRadio.checked ? 'annuity' : 'differential';
+
+            // тасдиқи арзишҳо
+            if (isNaN(amount) || amount <= 0) {
+                amount = 0;
+            }
+            if (isNaN(months) || months <= 0 || months > 1200) {
+                months = 1;
+            }
+            if (isNaN(annualRate) || annualRate < 0) {
+                annualRate = 0;
+            }
+            // агар маблағ 0 бошад
+            if (amount === 0) {
+                monthlyPaymentPreviewSpan.innerText = '0.00';
+                totalPaymentPreviewSpan.innerText = '0.00';
+                totalInterestPreviewSpan.innerText = '0.00';
+                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">Маблағи қарз сифр аст, ҷадвал мавҷуд нест</td></tr>';
+                return;
+            }
+            if (months === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">Мӯҳлат нодуруст</td></tr>';
+                return;
+            }
+
+            const result = calculateCredit(amount, months, annualRate, paymentType);
+            if (!result || !result.schedule || result.schedule.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="no-data">Хатогӣ ҳангоми ҳисобкунӣ. Санҷед параметрҳоро.</td></tr>';
+                return;
+            }
+
+            const schedule = result.schedule;
+            const totalPaid = result.totalPaid;
+            const totalInterest = result.totalInterest;
+            const avgMonthly = totalPaid / months;
+
+            // намоиши хулоса
+            let monthlyDisplay = '';
+            if (paymentType === 'annuity') {
+                monthlyDisplay = formatMoney(schedule[0]?.payment || 0) + ' (ҳармоҳа доимӣ)';
+            } else {
+                monthlyDisplay = formatMoney(schedule[0]?.payment || 0) + ' … ' + formatMoney(schedule[schedule.length-1]?.payment || 0) + ' (камшаванда)';
+            }
+            monthlyPaymentPreviewSpan.innerText = monthlyDisplay;
+            totalPaymentPreviewSpan.innerText = formatMoney(totalPaid) + ' сом.';
+            totalInterestPreviewSpan.innerText = formatMoney(totalInterest) + ' сом.';
+
+            // сохтани ҷадвал
+            let htmlRows = '';
+            for (let row of schedule) {
+                htmlRows += `<tr>
+                    <td>${row.month}</td>
+                    <td><strong>${formatMoney(row.payment)}</strong></td>
+                    <td>${formatMoney(row.principal)}</td>
+                    <td>${formatMoney(row.interest)}</td>
+                    <td>${formatMoney(row.balance)}</td>
+                </tr>`;
+            }
+            tableBody.innerHTML = htmlRows;
+        }
+
+        // функцияи иловагӣ барои тоза кардани ҳангоми тағйири параметрҳо (автоматӣ ё пахши тугма)
+        function handleCalculate() {
+            // боз ҳам филтр кардани қиматҳои ғайримиҷоз
+            let amount = parseFloat(loanAmountInput.value);
+            if (isNaN(amount)) loanAmountInput.value = 0;
+            if (amount < 0) loanAmountInput.value = 0;
+            let months = parseInt(loanMonthsInput.value, 10);
+            if (isNaN(months) || months < 1) loanMonthsInput.value = 1;
+            if (months > 600) loanMonthsInput.value = 600; // маҳдудияти оқилона
+            let rate = parseFloat(annualRateInput.value);
+            if (isNaN(rate)) annualRateInput.value = 0;
+            if (rate < 0) annualRateInput.value = 0;
+            if (rate > 100) annualRateInput.value = 100;
+
+            renderResults();
+        }
+
+        // иловаи рӯйдодҳо
+        calculateBtn.addEventListener('click', handleCalculate);
+        // инчунин ҳангоми тағйири намуди пардохт боз ҳисоб кунем
+        annuityRadio.addEventListener('change', () => { if (annuityRadio.checked) handleCalculate(); });
+        differentialRadio.addEventListener('change', () => { if (differentialRadio.checked) handleCalculate(); });
+        // тағйири воридот бо Enter дар майдонҳо
+        const inputs = [loanAmountInput, loanMonthsInput, annualRateInput];
+        inputs.forEach(inp => {
+            inp.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleCalculate();
+            });
+            inp.addEventListener('blur', () => {
+                // нормализатсия
+                if (inp.id === 'loanAmount' && parseFloat(inp.value) < 0) inp.value = 0;
+                if (inp.id === 'loanMonths') {
+                    let val = parseInt(inp.value,10);
+                    if (isNaN(val) || val < 1) inp.value = 1;
+                    if (val > 600) inp.value = 600;
+                }
+                if (inp.id === 'annualRate') {
+                    let val = parseFloat(inp.value);
+                    if (isNaN(val)) inp.value = 0;
+                    if (val > 100) inp.value = 100;
+                    if (val < 0) inp.value = 0;
+                }
+                handleCalculate();
+            });
+        });
+
+        // ҳисоби аввала ҳангоми боргирии саҳифа
+        window.addEventListener('DOMContentLoaded', () => {
+            // стандарт арзишҳо аллакай дар HTML: 50000, 12 моҳ, 18%, аннуитет
+            handleCalculate();
+        });
+    })();
+</script>
+</body>
+</html>
